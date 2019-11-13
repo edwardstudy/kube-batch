@@ -14,11 +14,21 @@ spec:
       labels:
         app: kube-batch
     spec:
+      volumes:
+        - name: scheduler-conf
+          configMap:
+            name: scheduler-conf
+            items:
+              - key: scheduler-conf.yaml
+                path: scheduler-conf.yaml
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}/kube-batch:{{ .Values.image.tag }}"
-        args: ["--logtostderr", "--v", "3"]
+        args: ["--logtostderr", "--v", "4", "--scheduler-conf", "/etc/scheduler-conf/scheduler-conf.yaml"]
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-
+        volumeMounts:
+          - name: scheduler-conf
+            readOnly: true
+            mountPath: "/etc/scheduler-conf"

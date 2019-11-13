@@ -22,7 +22,7 @@ To run `kube-batch`, a Kubernetes cluster must start up. Here is a document on [
 Run `kube-batch` as kubernetes scheduler.
 
 ```bash
-# helm install $GOPATH/src/github.com/kubernetes-sigs/kube-batch/deployment/kube-batch --namespace kube-system
+# helm install -n kube-batch $GOPATH/src/github.com/kubernetes-sigs/kube-batch/deployment/kube-batch --namespace kube-system
 ```
 
 Verify the release
